@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,24 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="img/favicon.png" sizes="16x16" />
+    <link rel="icon" href="img/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="img/favicon.png" />
+    <meta name="description"
+        content="QRISku memberikan kemudahan dalam pembuatan QRIS dinamis untuk transaksi cepat dan aman. Dengan fitur generasi QRIS yang mudah digunakan, Anda bisa membuat QRIS dinamis sesuai dengan nominal yang diinginkan dalam hitungan detik. Solusi terbaik untuk bisnis yang ingin mempermudah transaksi digital.">
+    <meta name="keywords"
+        content="QRIS dinamis, pembuatan QRIS, pembayaran digital, transaksi QRIS, QRISku, transaksi cepat, QRIS untuk bisnis, QRIS pembayaran, solusi pembayaran digital">
+    <meta property="og:title" content="QRISku - Pembuatan QRIS Dinamis Cepat dan Mudah">
+    <meta property="og:description"
+        content="QRISku memberikan kemudahan dalam pembuatan QRIS dinamis untuk transaksi cepat dan aman. Dengan fitur generasi QRIS yang mudah digunakan, Anda bisa membuat QRIS dinamis sesuai dengan nominal yang diinginkan dalam hitungan detik.">
+    <meta property="og:image" content="img/facebook.png">
+    <meta property="og:image:alt" content="QRISku Thumbnail">
+    <meta name="twitter:title" content="QRISku - Pembuatan QRIS Dinamis Cepat dan Mudah">
+    <meta name="twitter:description"
+        content="QRISku memberikan kemudahan dalam pembuatan QRIS dinamis untuk transaksi cepat dan aman. Buat QRIS sesuai nominal dengan mudah dan cepat.">
+    <meta name="twitter:image" content="img/twitter.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <style>
         :root {
             --primary: #8B0000;
@@ -111,7 +130,8 @@
             border-radius: 8px;
         }
 
-        input:focus, textarea:focus {
+        input:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -222,32 +242,41 @@
             justify-content: flex-end;
         }
 
-.action-button {
-    padding: 0.3rem 0.6rem; /* Ukuran padding sedang */
-    font-size: 0.8rem; /* Ukuran font sedang */
-    background: var(--accent);
-    border: 1.5px solid var(--dark); /* Border lebih halus */
-    border-radius: 8px; /* Radius lebih besar untuk tampilan membulat */
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Shadow minimal */
-    cursor: pointer;
-}
+        .action-button {
+            padding: 0.3rem 0.6rem;
+            /* Ukuran padding sedang */
+            font-size: 0.8rem;
+            /* Ukuran font sedang */
+            background: var(--accent);
+            border: 1.5px solid var(--dark);
+            /* Border lebih halus */
+            border-radius: 8px;
+            /* Radius lebih besar untuk tampilan membulat */
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            /* Shadow minimal */
+            cursor: pointer;
+        }
 
-.delete-btn {
-    background: #ff4444;
-    color: white;
-    padding: 0.3rem 0.6rem; /* Ukuran konsisten dengan .action-button */
-    font-size: 0.8rem;
-    border-radius: 8px; /* Sama dengan .action-button */
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Shadow minimal */
-    border: 1.5px solid #ff2222; /* Border konsisten dengan warna latar */
-}
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            /* Ukuran konsisten dengan .action-button */
+            font-size: 0.8rem;
+            border-radius: 8px;
+            /* Sama dengan .action-button */
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            /* Shadow minimal */
+            border: 1.5px solid #ff2222;
+            /* Border konsisten dengan warna latar */
+        }
 
 
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .header h1 {
                 font-size: 2rem;
             }
@@ -259,6 +288,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -393,7 +423,7 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return 'Rp ' + value.toLocaleString('id-ID');
                             }
                         }
@@ -417,7 +447,7 @@
         function updateMerchantSuggestions() {
             const container = document.getElementById('merchantSuggestions');
             container.innerHTML = '';
-            
+
             Array.from(merchantHistory).slice(-5).forEach(merchant => {
                 const btn = document.createElement('button');
                 btn.className = 'merchant-suggestion-btn';
@@ -488,7 +518,7 @@
         function updateTransactionHistory() {
             const tbody = document.getElementById('transactionHistory');
             tbody.innerHTML = '';
-            
+
             transactionHistory.forEach((tx, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -509,9 +539,9 @@
         // Decode QR
         function decodeQR(file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 const img = new Image();
-                img.onload = function() {
+                img.onload = function () {
                     const canvas = document.createElement("canvas");
                     const context = canvas.getContext("2d");
                     canvas.width = img.width;
@@ -642,13 +672,13 @@
 
                 // Generate QRIS
                 const qrisDinamis = makeString(qrisCode, { nominal: nominalInput });
-                
+
                 // Generate QR Code
                 const qrcodeElement = document.getElementById('qrcode');
                 qrcodeElement.innerHTML = '';
-                
+
                 await new Promise((resolve, reject) => {
-                    QRCode.toCanvas(qrisDinamis, { 
+                    QRCode.toCanvas(qrisDinamis, {
                         margin: 2,
                         width: 300,
                         height: 300,
@@ -665,7 +695,7 @@
                 // Update histories
                 merchantHistory.add(merchantName);
                 localStorage.setItem(STORAGE_KEYS.MERCHANTS, JSON.stringify([...merchantHistory]));
-                
+
                 transactionHistory.unshift({
                     date: formatDate(new Date()),
                     merchant: merchantName,
@@ -679,7 +709,7 @@
                 updateMerchantSuggestions();
                 updateStats();
                 updateTransactionHistory();
-                
+
                 showToast('QR Code berhasil dibuat!');
             } catch (error) {
                 console.error(error);
@@ -695,28 +725,28 @@
         }
 
         // Event Listeners
-        document.getElementById('fileInput').addEventListener('change', function(event) {
+        document.getElementById('fileInput').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 decodeQR(file);
             }
         });
 
-        document.getElementById('nominalInput').addEventListener('input', function(e) {
+        document.getElementById('nominalInput').addEventListener('input', function (e) {
             // Remove non-numeric characters
             let value = e.target.value.replace(/\D/g, '');
             e.target.value = value;
         });
 
-        document.getElementById('merchantName').addEventListener('input', function(e) {
+        document.getElementById('merchantName').addEventListener('input', function (e) {
             const value = e.target.value.toLowerCase();
-            const suggestions = [...merchantHistory].filter(m => 
+            const suggestions = [...merchantHistory].filter(m =>
                 m.toLowerCase().includes(value)
             ).slice(0, 5);
 
             const container = document.getElementById('merchantSuggestions');
             container.innerHTML = '';
-            
+
             suggestions.forEach(merchant => {
                 const btn = document.createElement('button');
                 btn.className = 'merchant-suggestion-btn';
@@ -735,4 +765,5 @@
         updateMerchantSuggestions();
     </script>
 </body>
+
 </html>
