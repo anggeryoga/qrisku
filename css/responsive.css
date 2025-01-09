@@ -1,0 +1,174 @@
+/* Responsif untuk Layar Kecil (Mobile First) */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+        padding: 1.5rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+        letter-spacing: -1px;
+    }
+
+    /* Kontainer Statistik */
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    /* Kontainer Utama */
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Formulir */
+    .form-group {
+        padding: 1rem;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* QR Code */
+    #qrcode {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    #qrcode canvas {
+        width: 250px !important;
+        height: 250px !important;
+    }
+
+    /* Riwayat Tabel */
+    .history-table th,
+    .history-table td {
+        padding: 0.8rem;
+    }
+
+    .history-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+
+    /* Merchant Suggestion */
+    .merchant-suggestions {
+        margin-top: 1rem;
+    }
+
+    .merchant-suggestion-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Aksi */
+    .actions-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .action-button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .delete-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Responsif untuk Layar Tablet dan Lebih Besar */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Header */
+    .header h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Kontainer Statistik */
+    .stats-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    /* Kontainer Utama */
+    .main-content {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Formulir */
+    .form-group {
+        padding: 1.5rem;
+    }
+
+    button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    /* QR Code */
+    #qrcode {
+        margin-top: 2rem;
+        padding: 2rem;
+    }
+
+    #qrcode canvas {
+        width: 280px !important;
+        height: 280px !important;
+    }
+
+    /* Riwayat Tabel */
+    .history-table th,
+    .history-table td {
+        padding: 1rem;
+    }
+
+    /* Merchant Suggestion */
+    .merchant-suggestions {
+        margin-top: 0;
+    }
+
+    .merchant-suggestion-btn {
+        font-size: 1rem;
+    }
+
+    /* Aksi */
+    .actions-container {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .action-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .delete-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
