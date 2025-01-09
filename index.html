@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRIS Hub Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #FF4444;
+            --accent: #FFE4E1;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .header {
+            background: var(--primary);
+            color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 8px solid var(--dark);
+            box-shadow: 8px 8px 0 var(--dark);
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem;
+        }
+
+        .stat-card {
+            background: var(--accent);
+            border: 4px solid var(--dark);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 8px 8px 0 var(--dark);
+            transition: transform 0.2s;
+            border-radius: 15px;
+        }
+
+        .stat-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 var(--dark);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 1rem;
+        }
+
+        .form-group {
+            background: white;
+            border: 4px solid var(--dark);
+            padding: 1.5rem;
+            box-shadow: 8px 8px 0 var(--dark);
+            border-radius: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        input[type="file"],
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 3px solid var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--light);
+            border: 4px solid var(--dark);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 var(--dark);
+            transition: all 0.2s;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background: var(--secondary);
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 var(--dark);
+        }
+
+        #qrcode {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--accent);
+            border: 4px solid var(--dark);
+            box-shadow: 8px 8px 0 var(--dark);
+            border-radius: 15px;
+        }
+
+        #qrcode canvas {
+            width: 300px !important;
+            height: 300px !important;
+        }
+
+        .history-container {
+            margin: 2rem 1rem;
+            background: white;
+            border: 4px solid var(--dark);
+            box-shadow: 8px 8px 0 var(--dark);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 1rem;
+            border: 2px solid var(--dark);
+            text-align: left;
+        }
+
+        .history-table th {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .history-table tr:nth-child(even) {
+            background-color: var(--accent);
+        }
+
+        .chart-container {
+            margin: 2rem 1rem;
+            padding: 1rem;
+            background: white;
+            border: 4px solid var(--dark);
+            box-shadow: 8px 8px 0 var(--dark);
+            height: 300px;
+            border-radius: 15px;
+        }
+
+        .merchant-suggestions {
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+        }
+
+        .merchant-suggestion-btn {
+            margin: 0.2rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            border: 2px solid var(--dark);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .merchant-suggestion-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .actions-container {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .action-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            background: var(--accent);
+            border: 2px solid var(--dark);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            #qrcode canvas {
+                width: 250px !important;
+                height: 250px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>QRIS Hub Generator</h1>
+            <p>Sistem Pembayaran Digital Yang Mudah</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Transaksi</h3>
+                <p id="totalTransactions">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Nilai</h3>
+                <p id="totalValue">Rp 0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Rata-rata Transaksi</h3>
+                <p id="avgTransaction">Rp 0</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="fileInput">Upload QRIS Image</label>
+                    <input type="file" id="fileInput" accept="image/*" />
+                </div>
+
+                <div class="input-group">
+                    <label for="qrisCode">Kode QRIS</label>
+                    <textarea id="qrisCode" rows="5" placeholder="Kode QRIS akan muncul di sini" readonly></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="nominalInput">Nominal Pembayaran</label>
+                    <input type="number" id="nominalInput" placeholder="Masukkan nominal pembayaran" min="1" />
+                </div>
+
+                <div class="input-group">
+                    <label for="merchantName">Nama Merchant</label>
+                    <input type="text" id="merchantName" placeholder="Masukkan nama merchant" />
+                    <div id="merchantSuggestions" class="merchant-suggestions"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="transactionNote">Catatan Transaksi</label>
+                    <input type="text" id="transactionNote" placeholder="Masukkan catatan transaksi" />
+                </div>
+
+                <div class="button-container">
+                    <button onclick="generateQRIS()" id="generateButton">Generate QRIS</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div id="qrcode"></div>
+                <div class="button-container">
+                    <button onclick="downloadQR()">Download QR</button>
+                    <button onclick="shareQR()">Bagikan</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="transactionChart"></canvas>
+        </div>
+
+        <div class="history-container">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Merchant</th>
+                        <th>Nominal</th>
+                        <th>Catatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionHistory">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Storage keys
+        const STORAGE_KEYS = {
+            QRIS_CODE: 'savedQrisCode',
+            TRANSACTIONS: 'transactionHistory',
+            MERCHANTS: 'merchantHistory'
+        };
+
+        // Initialize data
+        let transactionHistory = JSON.parse(localStorage.getItem(STORAGE_KEYS.TRANSACTIONS) || '[]');
+        let merchantHistory = new Set(JSON.parse(localStorage.getItem(STORAGE_KEYS.MERCHANTS) || '[]'));
+        let uploadedQRISData = localStorage.getItem(STORAGE_KEYS.QRIS_CODE) || '';
+
+        // Set initial QRIS code if exists
+        if (uploadedQRISData) {
+            document.getElementById('qrisCode').value = uploadedQRISData;
+        }
+
+        // Initialize Chart
+        const ctx = document.getElementById('transactionChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Nominal Transaksi',
+                    data: [],
+                    borderColor: '#2563eb',
+                    tension: 0.1,
+                    fill: true,
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafik Transaksi'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + value.toLocaleString('id-ID');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Format date
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        // Update merchant suggestions
+        function updateMerchantSuggestions() {
+            const container = document.getElementById('merchantSuggestions');
+            container.innerHTML = '';
+            
+            Array.from(merchantHistory).slice(-5).forEach(merchant => {
+                const btn = document.createElement('button');
+                btn.className = 'merchant-suggestion-btn';
+                btn.textContent = merchant;
+                btn.onclick = () => {
+                    document.getElementById('merchantName').value = merchant;
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // Update statistics
+        function updateStats() {
+            const total = transactionHistory.reduce((sum, tx) => sum + parseFloat(tx.amount), 0);
+            const avg = transactionHistory.length ? total / transactionHistory.length : 0;
+
+            document.getElementById('totalTransactions').textContent = transactionHistory.length;
+            document.getElementById('totalValue').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            document.getElementById('avgTransaction').textContent = `Rp ${avg.toLocaleString('id-ID')}`;
+
+            // Update chart
+            const recentTransactions = transactionHistory.slice(-10).reverse();
+            chart.data.labels = recentTransactions.map(tx => tx.date.split(',')[0]);
+            chart.data.datasets[0].data = recentTransactions.map(tx => parseFloat(tx.amount));
+            chart.update();
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                document.body.removeChild(existingToast);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Show the toast
+            requestAnimationFrame(() => {
+                toast.style.display = 'block';
+            });
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Delete transaction
+        function deleteTransaction(index) {
+            if (confirm('Yakin ingin menghapus transaksi ini?')) {
+                transactionHistory.splice(index, 1);
+                localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(transactionHistory));
+                updateTransactionHistory();
+                updateStats();
+                showToast('Transaksi berhasil dihapus');
+            }
+        }
+
+        // Update transaction history
+        function updateTransactionHistory() {
+            const tbody = document.getElementById('transactionHistory');
+            tbody.innerHTML = '';
+            
+            transactionHistory.forEach((tx, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${tx.date}</td>
+                    <td>${tx.merchant}</td>
+                    <td>Rp ${parseFloat(tx.amount).toLocaleString('id-ID')}</td>
+                    <td>${tx.note}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteTransaction(${index})">
+                            Hapus
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Decode QR
+        function decodeQR(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+                    const context = canvas.getContext("2d");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img, 0, 0, img.width, img.height);
+
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                    if (code) {
+                        uploadedQRISData = code.data;
+                        document.getElementById('qrisCode').value = uploadedQRISData;
+                        localStorage.setItem(STORAGE_KEYS.QRIS_CODE, uploadedQRISData);
+                        showToast('QRIS berhasil diupload!');
+                    } else {
+                        showToast('QR Code tidak ditemukan.', 'error');
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // CRC16 calculation
+        function toCRC16(input) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < input.length; i++) {
+                crc ^= input.charCodeAt(i) << 8;
+                for (let j = 0; j < 8; j++) {
+                    crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+                }
+            }
+            let hex = (crc & 0xFFFF).toString(16).toUpperCase();
+            return hex.length === 3 ? "0" + hex : hex;
+        }
+
+        // Pad number
+        function pad(number) {
+            return number < 10 ? '0' + number : number.toString();
+        }
+
+        // Make QRIS string
+        function makeString(qris, { nominal } = {}) {
+            if (!qris) throw new Error('QRIS data diperlukan.');
+            if (!nominal) throw new Error('Nominal diperlukan.');
+
+            let qrisModified = qris.slice(0, -4).replace("010211", "010212");
+            let qrisParts = qrisModified.split("5802ID");
+
+            let amount = "54" + pad(nominal.toString().length) + nominal;
+            amount += "5802ID";
+
+            let output = qrisParts[0].trim() + amount + qrisParts[1].trim();
+            output += toCRC16(output);
+
+            return output;
+        }
+
+        // Download QR
+        async function downloadQR() {
+            const canvas = document.querySelector("#qrcode canvas");
+            if (!canvas) {
+                showToast("Harap generate QR Code terlebih dahulu!", "error");
+                return;
+            }
+
+            try {
+                const link = document.createElement('a');
+                link.download = 'qris-payment.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                showToast('QR Code berhasil diunduh!');
+            } catch (error) {
+                console.error(error);
+                showToast('Gagal mengunduh QR Code', 'error');
+            }
+        }
+
+        // Share QR
+        async function shareQR() {
+            const canvas = document.querySelector("#qrcode canvas");
+            if (!canvas) {
+                showToast("Harap generate QR Code terlebih dahulu!", "error");
+                return;
+            }
+
+            try {
+                const blob = await new Promise(resolve => canvas.toBlob(resolve));
+                const file = new File([blob], "qris-payment.png", { type: "image/png" });
+
+                if (navigator.share) {
+                    await navigator.share({
+                        title: 'QRIS Payment',
+                        text: 'QRIS Payment QR Code',
+                        files: [file]
+                    });
+                    showToast('QR Code berhasil dibagikan!');
+                } else {
+                    showToast('Fitur berbagi tidak didukung di browser ini', 'warning');
+                }
+            } catch (error) {
+                console.error(error);
+                if (error.name !== 'AbortError') {
+                    showToast('Gagal membagikan QR Code', 'error');
+                }
+            }
+        }
+
+        // Generate QRIS
+        async function generateQRIS() {
+            const qrisCode = document.getElementById('qrisCode').value.trim();
+            const nominalInput = document.getElementById('nominalInput').value.trim();
+            const merchantName = document.getElementById('merchantName').value.trim();
+            const transactionNote = document.getElementById('transactionNote').value.trim();
+            const generateButton = document.getElementById('generateButton');
+
+            if (!qrisCode || !nominalInput || !merchantName) {
+                showToast('Harap isi semua field yang diperlukan.', 'error');
+                return;
+            }
+
+            try {
+                // Disable button and show loading
+                generateButton.disabled = true;
+                const loading = document.createElement('span');
+                loading.className = 'loading';
+                generateButton.appendChild(loading);
+
+                // Generate QRIS
+                const qrisDinamis = makeString(qrisCode, { nominal: nominalInput });
+                
+                // Generate QR Code
+                const qrcodeElement = document.getElementById('qrcode');
+                qrcodeElement.innerHTML = '';
+                
+                await new Promise((resolve, reject) => {
+                    QRCode.toCanvas(qrisDinamis, { 
+                        margin: 2,
+                        width: 300,
+                        height: 300,
+                        errorCorrectionLevel: 'H'
+                    }, function (err, canvas) {
+                        if (err) reject(err);
+                        else {
+                            qrcodeElement.appendChild(canvas);
+                            resolve();
+                        }
+                    });
+                });
+
+                // Update histories
+                merchantHistory.add(merchantName);
+                localStorage.setItem(STORAGE_KEYS.MERCHANTS, JSON.stringify([...merchantHistory]));
+                
+                transactionHistory.unshift({
+                    date: formatDate(new Date()),
+                    merchant: merchantName,
+                    amount: nominalInput,
+                    note: transactionNote || '-'
+                });
+
+                localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(transactionHistory));
+
+                // Update UI
+                updateMerchantSuggestions();
+                updateStats();
+                updateTransactionHistory();
+                
+                showToast('QR Code berhasil dibuat!');
+            } catch (error) {
+                console.error(error);
+                showToast('Gagal membuat QR Code', 'error');
+            } finally {
+                // Remove loading and enable button
+                generateButton.disabled = false;
+                const loading = generateButton.querySelector('.loading');
+                if (loading) {
+                    generateButton.removeChild(loading);
+                }
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                decodeQR(file);
+            }
+        });
+
+        document.getElementById('nominalInput').addEventListener('input', function(e) {
+            // Remove non-numeric characters
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+        });
+
+        document.getElementById('merchantName').addEventListener('input', function(e) {
+            const value = e.target.value.toLowerCase();
+            const suggestions = [...merchantHistory].filter(m => 
+                m.toLowerCase().includes(value)
+            ).slice(0, 5);
+
+            const container = document.getElementById('merchantSuggestions');
+            container.innerHTML = '';
+            
+            suggestions.forEach(merchant => {
+                const btn = document.createElement('button');
+                btn.className = 'merchant-suggestion-btn';
+                btn.textContent = merchant;
+                btn.onclick = () => {
+                    document.getElementById('merchantName').value = merchant;
+                    container.innerHTML = '';
+                };
+                container.appendChild(btn);
+            });
+        });
+
+        // Initialize UI
+        updateStats();
+        updateTransactionHistory();
+        updateMerchantSuggestions();
+    </script>
+</body>
+</html>
