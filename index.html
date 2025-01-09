@@ -222,19 +222,26 @@
             justify-content: flex-end;
         }
 
-        .action-button {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            background: var(--accent);
-            border: 2px solid var(--dark);
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.action-button {
+    padding: 0.3rem 0.6rem; /* Ukuran padding sedang */
+    font-size: 0.8rem; /* Ukuran font sedang */
+    background: var(--accent);
+    border: 1.5px solid var(--dark); /* Border lebih halus */
+    border-radius: 8px; /* Radius lebih besar untuk tampilan membulat */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Shadow minimal */
+    cursor: pointer;
+}
 
-        .delete-btn {
-            background: #ff4444;
-            color: white;
-        }
+.delete-btn {
+    background: #ff4444;
+    color: white;
+    padding: 0.3rem 0.6rem; /* Ukuran konsisten dengan .action-button */
+    font-size: 0.8rem;
+    border-radius: 8px; /* Sama dengan .action-button */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Shadow minimal */
+    border: 1.5px solid #ff2222; /* Border konsisten dengan warna latar */
+}
+
 
         @media (max-width: 768px) {
             .main-content {
