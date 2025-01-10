@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -5,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QRIS Hub Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
@@ -26,10 +28,199 @@
         content="QRISku memberikan kemudahan dalam pembuatan QRIS dinamis untuk transaksi cepat dan aman. Buat QRIS sesuai nominal dengan mudah dan cepat.">
     <meta name="twitter:image" content="img/twitter.png">
     <meta name="twitter:card" content="summary_large_image">
-
+  
     
 </head>
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="styles.css">
+  <style>
+    .qris_wa_container * {
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+
+    .qris_wa_popup {
+      position: fixed;
+      bottom: 100px;
+      right: 40px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      padding: 24px;
+      width: 330px;
+      z-index: 9999;
+      display: none;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.3s ease-out;
+    }
+
+    .qris_wa_popup.qris_wa_show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .qris_wa_float_btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      z-index: 9999;
+      transition: all 0.3s ease;
+      animation: qris_wa_pulse 2s infinite;
+    }
+
+    @keyframes qris_wa_pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    .qris_wa_float_btn:hover {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+    }
+
+    .qris_wa_float_btn i {
+      color: white;
+      font-size: 32px;
+    }
+
+    .qris_wa_header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .qris_wa_avatar {
+      width: 48px;
+      height: 48px;
+      margin-right: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid #25D366;
+      padding: 2px;
+    }
+
+    .qris_wa_header_text {
+      flex-grow: 1;
+    }
+
+    .qris_wa_title {
+      margin: 0;
+      color: #1a1a1a;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .qris_wa_subtitle {
+      margin: 4px 0 0 0;
+      color: #25D366;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .qris_wa_subtitle::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #25D366;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: qris_wa_blink 1.5s infinite;
+    }
+
+    @keyframes qris_wa_blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+.qris_wa_close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 1px 2px;
+}
+
+    .qris_wa_close:hover {
+      transform: rotate(90deg);
+    }
+
+    .qris_wa_message {
+      color: #4a4a4a;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border-left: 4px solid #25D366;
+    }
+
+    .qris_wa_chat_btn {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qris_wa_chat_btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .qris_wa_chat_btn:hover::before {
+      left: 100%;
+    }
+
+    .qris_wa_chat_btn i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .qris_wa_chat_btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+  </style>
 <body>
     <div class="container">
         <div class="header">
@@ -114,6 +305,31 @@
             </table>
         </div>
     </div>
+<div class="qris_wa_container">
+    <!-- WhatsApp Button -->
+    <div class="qris_wa_float_btn" onclick="qrisWaTogglePopup()">
+      <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp" style="width: 40px; height: 40px;">
+    </div>
+    <!-- Popup -->
+    <div class="qris_wa_popup" id="qrisWaPopup">
+      <div class="qris_wa_header">
+        <img class="qris_wa_avatar" src="/api/placeholder/48/48" alt="Qrisku Support">
+        <div class="qris_wa_header_text">
+          <h3 class="qris_wa_title">Qrisku Support</h3>
+          <p class="qris_wa_subtitle">Siap Membantu</p>
+        </div>
+        <button class="qris_wa_close" onclick="qrisWaTogglePopup()">&times;</button>
+      </div>
+      <div class="qris_wa_message">
+        👋 Halo! Ada yang bisa kami bantu?
+        Konsultasi gratis dengan tim support kami untuk mendapatkan solusi terbaik untuk Anda.
+      </div>
+      <button class="qris_wa_chat_btn" onclick="qrisWaOpenChat()">
+        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp" style="width: 30px; height: 30px; margin-right: 8px;">
+        Hubungi Kami Sekarang
+      </button>
+    </div>
+</div>
 
     <script>
         // Storage keys
@@ -505,6 +721,32 @@
         updateTransactionHistory();
         updateMerchantSuggestions();
     </script>
+    <script>
+    function qrisWaTogglePopup() {
+      const popup = document.getElementById('qrisWaPopup');
+      if (popup.style.display === 'none' || !popup.style.display) {
+        popup.style.display = 'block';
+        setTimeout(() => {
+          popup.classList.add('qris_wa_show');
+        }, 10);
+      } else {
+        popup.classList.remove('qris_wa_show');
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 300);
+      }
+    }
+
+    function qrisWaOpenChat() {
+      // Ganti dengan nomor WhatsApp Anda
+      window.open('https://wa.me/1234567890?text=Halo,%20saya%20ingin%20konsultasi%20dengan%20tim%20Qrisku', '_blank');
+    }
+
+    // Tampilkan popup setelah 3 detik
+    setTimeout(() => {
+      qrisWaTogglePopup();
+    }, 3000);
+  </script>
 </body>
 
 </html>
