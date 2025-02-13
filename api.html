@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRIS Generator API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="img/favicon.png" sizes="16x16" />
+    <link rel="icon" href="img/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="img/favicon.png" />
+    <meta name="google-site-verification" content="EF9NHPIkzM2wfIbT4zn0tDmTWPMjwETKvTU_zH8AcW8" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff3d5a;
+            --secondary-color: #000000;
+            --background-color: #f4f2ed;
+            --section-bg: #ffffff;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            min-height: 100vh;
+            padding: clamp(1rem, 5vw, 2rem);
+        }
+
+        .title-container {
+            position: relative;
+            text-align: center;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+            padding: 0.5rem;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: white;
+            font-weight: 700;
+            line-height: 1.2;
+            background-color: var(--primary-color);
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: var(--border-radius);
+            border: 3px solid var(--secondary-color);
+            position: relative;
+            box-shadow: 6px 6px 0 var(--secondary-color);
+            transform: rotate(-2deg);
+            /* Menambahkan rotasi sedikit ke kiri */
+            transition: transform 0.3s ease;
+            /* Menambahkan transisi untuk efek hover */
+        }
+
+        /* Optional: Menambahkan efek hover */
+        h1:hover {
+            transform: rotate(2deg);
+            /* Rotasi ke arah berlawanan saat hover */
+        }
+
+        h2 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .form-container {
+            background-color: var(--section-bg);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: 6px 6px 0 var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            background-color: var(--section-bg);
+            font-family: 'Roboto Mono', monospace;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 4px 4px 0 var(--secondary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--section-bg);
+            border: 2px solid var(--secondary-color);
+            padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1.2rem, 3vw, 1.5rem);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0 var(--secondary-color);
+            width: 100%;
+            text-align: center;
+        }
+
+        button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--secondary-color);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--secondary-color);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .result-container {
+            display: none;
+            background-color: var(--section-bg);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            margin: 2rem auto;
+            box-shadow: 6px 6px 0 var(--secondary-color);
+            max-width: 800px;
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        #apiResult {
+            background-color: var(--background-color);
+            padding: 1rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #qrCodeCanvas {
+            display: block;
+            margin: 1.5rem auto;
+            padding: 1rem;
+            background-color: var(--section-bg);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            box-shadow: 4px 4px 0 var(--secondary-color);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .copy-btn {
+            background-color: var(--secondary-color);
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            button {
+                width: auto;
+                min-width: 200px;
+            }
+
+            .form-container button {
+                display: block;
+                margin: 0 auto;
+            }
+
+            .form-group {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title-container">
+        <h1>QRIS Generator</h1>
+    </div>
+
+    <div class="form-container">
+        <div class="form-group">
+            <label for="amount">Nominal (Rp)</label>
+            <input type="text" id="amount" placeholder="Masukkan nominal (contoh: 10.000)" required>
+        </div>
+        <div class="form-group">
+            <label for="qris-static">QRIS Statis</label>
+            <input type="text" id="qris-static" placeholder="Masukkan kode QRIS statis" required>
+        </div>
+        <button onclick="generateManual()">Generate QRIS</button>
+    </div>
+
+    <div class="loading">
+        Generating QRIS...
+    </div>
+
+    <div class="result-container">
+        <h2>Hasil</h2>
+        <div id="apiResult"></div>
+        <canvas id="qrCodeCanvas"></canvas>
+        <button class="copy-btn" onclick="copyResult()">Copy QRIS String</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID').format(angka);
+        }
+
+        function unformatRupiah(rupiah) {
+            return rupiah.replace(/\D/g, '');
+        }
+
+        // Format input as Rupiah when user types
+        document.getElementById('amount').addEventListener('input', function (e) {
+            let value = unformatRupiah(this.value);
+            if (value) {
+                this.value = formatRupiah(value);
+            }
+        });
+
+        function showLoading() {
+            document.querySelector('.loading').classList.add('show');
+            document.querySelector('.result-container').classList.remove('show');
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading').classList.remove('show');
+        }
+
+        function showResult(result) {
+            const resultContainer = document.querySelector('.result-container');
+            const apiResultElement = document.getElementById('apiResult');
+            const qrCodeCanvas = document.getElementById('qrCodeCanvas');
+
+            apiResultElement.textContent = JSON.stringify(result, null, 2);
+
+            QRCode.toCanvas(qrCodeCanvas, result.qris_string, {
+                width: 256,
+                margin: 2,
+                color: {
+                    dark: '#000000',
+                    light: '#ffffff'
+                }
+            }, function (error) {
+                if (error) {
+                    console.error("Gagal membuat QR Code:", error);
+                    apiResultElement.textContent += "\nGagal membuat QR Code.";
+                    qrCodeCanvas.style.display = 'none';
+                } else {
+                    qrCodeCanvas.style.display = 'block';
+                }
+            });
+
+            resultContainer.classList.add('show');
+            hideLoading();
+        }
+
+        function showError(message) {
+            hideLoading();
+            const errorMsg = `Error: ${message}`;
+            alert(errorMsg);
+        }
+
+        async function generateQris(amount, qrisStatis) {
+            const url = 'https://api.qrisku.biz.id/';
+            const data = { amount: amount, qris_statis: qrisStatis };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error:', error);
+                return { status: 'error', message: error.message };
+            }
+        }
+
+        async function generateManual() {
+            const amountInput = document.getElementById('amount');
+            const qrisStaticInput = document.getElementById('qris-static');
+            const amount = unformatRupiah(amountInput.value);
+            const qrisStatic = qrisStaticInput.value.trim();
+
+            if (!amount || !qrisStatic) {
+                showError('Mohon isi semua field');
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showError('Nominal harus berupa angka positif');
+                return;
+            }
+
+            showLoading();
+            const result = await generateQris(amount, qrisStatic);
+            if (result.status === 'success') {
+                showResult(result);
+            } else {
+                showError(result.message || 'Terjadi kesalahan pada server');
+            }
+        }
+
+        async function copyResult() {
+            try {
+                const result = document.getElementById('apiResult').textContent;
+                await navigator.clipboard.writeText(result);
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            } catch (err) {
+                showError('Gagal menyalin teks');
+            }
+        }
+
+        // Event listeners for input validation and enter key
+        document.getElementById('amount').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('qris-static').focus();
+            }
+        });
+
+        document.getElementById('qris-static').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                generateManual();
+            }
+        });
+    </script>
+</body>
+
+</html>
