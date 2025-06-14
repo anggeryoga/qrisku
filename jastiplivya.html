@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulir JastipHemat by Lviaa</title>
+
+  <!-- SEO Meta -->
+  <meta name="description"
+    content="JastipHemat by Lviaa - Jasa titip event beauty yang lebih hemat hingga 40%! Skincare dan kosmetik original dari event.">
+  <meta name="keywords"
+    content="jastip, jastip hemat, jastip skincare, jastip event beauty, kosmetik murah, jastip Lviaa">
+  <meta name="author" content="Lviaa">
+
+  <!-- Open Graph for Thumbnail -->
+  <meta property="og:title" content="JastipHemat by Lviaa" />
+  <meta property="og:description"
+    content="Titip belanja skincare dari event beauty? Lebih hemat hingga 40%! Cek sekarang!" />
+  <meta property="og:image"
+    content="https://h2rsi9anqnqbkvkf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jun%2014%2C%202025%2C%2010_09_23%20AM-VtRuQDS5JHwV7fSp5U9OfwsOnt1odY.png" />
+  <meta property="og:url" content="https://qrisku.biz.id/jastiplivya" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="https://h2rsi9anqnqbkvkf.public.blob.vercel-storage.com/online-shopping-TPL6wdLE6gGkfHmb2HG1oJNxcItk1W.png"
+    type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #ff6b6b;
+      --primary-dark: #ff5252;
+      --primary-light: #ffb3ba;
+      --secondary-color: #4ecdc4;
+      --accent-color: #45b7d1;
+      --success-color: #96ceb4;
+      --warning-color: #ffd93d;
+      --error-color: #ff6b6b;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --text-light: #95a5a6;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-light: #ecf0f1;
+      --border-color: #e0e6ed;
+      --border-focus: #ff6b6b;
+      --shadow-light: 0 2px 15px rgba(0, 0, 0, 0.08);
+      --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --shadow-strong: 0 15px 35px rgba(0, 0, 0, 0.1);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --gradient-primary: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+      --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-bg: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--gradient-bg);
+      min-height: 100vh;
+      line-height: 1.6;
+      color: var(--text-primary);
+      padding: 20px 15px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-strong);
+      overflow: hidden;
+      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .form-header {
+      background: var(--gradient-primary);
+      padding: 40px 30px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-header::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.3;
+      }
+    }
+
+    .form-header h1 {
+      font-size: clamp(28px, 6vw, 36px);
+      font-weight: 700;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header p {
+      font-size: 18px;
+      opacity: 0.95;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-body {
+      padding: 40px 30px;
+      background: var(--bg-primary);
+    }
+
+    .welcome-card {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.05) 0%, rgba(78, 205, 196, 0.05) 100%);
+      border: 2px solid rgba(255, 107, 107, 0.1);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--gradient-primary);
+      border-radius: 0 5px 5px 0;
+    }
+
+    .welcome-card .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      font-size: 20px;
+      box-shadow: var(--shadow-light);
+    }
+
+    .welcome-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .welcome-card p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 25px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-row.two-columns {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .form-group label i {
+      color: var(--primary-color);
+      width: 18px;
+      font-size: 16px;
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--error-color);
+      font-weight: 700;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 400;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-light);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1), var(--shadow-medium);
+      transform: translateY(-2px);
+    }
+
+    .form-control:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow-medium);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+
+    select.form-control {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff6b6b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 16px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 50px;
+      appearance: none;
+    }
+
+    .payment-info {
+      margin-top: 12px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.05) 0%, rgba(78, 205, 196, 0.05) 100%);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--primary-color);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .payment-info strong {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px 30px;
+      background: var(--gradient-primary);
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-medium);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+      background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--shadow-light);
+    }
+
+    .submit-btn:disabled::before {
+      display: none;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--primary-color);
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .loading.show {
+      display: flex;
+    }
+
+    .loading i {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .message {
+      padding: 20px 25px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      display: none;
+      font-weight: 500;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: var(--shadow-light);
+    }
+
+    .message.show {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .message.success {
+      background: linear-gradient(135deg, rgba(150, 206, 180, 0.1) 0%, rgba(150, 206, 180, 0.05) 100%);
+      color: #27ae60;
+      border: 2px solid rgba(150, 206, 180, 0.3);
+      border-left: 5px solid #27ae60;
+    }
+
+    .message.error {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+      color: #e74c3c;
+      border: 2px solid rgba(255, 107, 107, 0.3);
+      border-left: 5px solid #e74c3c;
+    }
+
+    .decorative-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .floating-shape:nth-child(1) {
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 107, 107, 0.1);
+      top: 15%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .floating-shape:nth-child(2) {
+      width: 80px;
+      height: 80px;
+      background: rgba(78, 205, 196, 0.1);
+      top: 60%;
+      right: 10%;
+      animation-delay: 3s;
+    }
+
+    .floating-shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      background: rgba(69, 183, 209, 0.1);
+      top: 30%;
+      right: 20%;
+      animation-delay: 6s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: translateY(-30px) rotate(180deg);
+        opacity: 0.3;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px 10px;
+      }
+
+      .form-header {
+        padding: 30px 20px;
+      }
+
+      .form-body {
+        padding: 30px 20px;
+      }
+
+      .form-row.two-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .form-control {
+        padding: 14px 16px;
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        padding: 16px 25px;
+        font-size: 16px;
+      }
+
+      .welcome-card {
+        padding: 20px;
+      }
+
+      .floating-shape {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-header h1 {
+        font-size: 24px;
+      }
+
+      .form-header p {
+        font-size: 16px;
+      }
+
+      .form-body {
+        padding: 25px 15px;
+      }
+
+      .form-control {
+        padding: 12px 14px;
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        padding: 14px 20px;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+      }
+
+      .welcome-card {
+        padding: 18px;
+        margin-bottom: 25px;
+      }
+
+      .form-grid {
+        gap: 20px;
+      }
+
+      .form-row {
+        gap: 15px;
+      }
+    }
+
+    /* Accessibility improvements */
+    .form-control:focus-visible {
+      outline: 3px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    /* Remove animations for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Enhanced form styling */
+    .form-group {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .form-group:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .form-group:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .form-group:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .form-group:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .form-group:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    .form-group:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="decorative-elements">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <div class="container">
+    <div class="form-card">
+      <div class="form-header">
+        <h1><i class="fas fa-heart"></i> JastipHemat by Lviaa</h1>
+        <p>Layanan Jasa Titip Terpercaya & Hemat</p>
+      </div>
+
+      <div class="form-body">
+        <div class="welcome-card">
+          <div class="icon">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <h3>Selamat Datang di JastipHemat!</h3>
+          <p>Isi formulir ini dengan lengkap untuk pemesanan jasa titip. Tim kami akan menghubungi Anda dalam waktu 1x24
+            jam untuk konfirmasi dan proses lebih lanjut.</p>
+        </div>
+
+        <div class="message success" id="successMessage">
+          <i class="fas fa-check-circle"></i>
+          <span>Formulir berhasil dikirim! Terima kasih sudah mempercayai JastipHemat 💕</span>
+        </div>
+
+        <div class="message error" id="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami langsung.</span>
+        </div>
+
+        <form id="jastipForm">
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nama" class="required">
+                  <i class="fas fa-user"></i>
+                  Nama Lengkap
+                </label>
+                <input type="text" id="nama" name="nama" class="form-control" required
+                  placeholder="Masukkan nama lengkap Anda">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="alamat" class="required">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Alamat Lengkap
+                </label>
+                <textarea id="alamat" name="alamat" class="form-control" required
+                  placeholder="Masukkan alamat lengkap dengan RT/RW, kelurahan, kecamatan, kota/kabupaten, dan kode pos"></textarea>
+              </div>
+            </div>
+
+            <div class="form-row two-columns">
+              <div class="form-group">
+                <label for="nomor_hp" class="required">
+                  <i class="fas fa-phone"></i>
+                  Nomor HP / WhatsApp
+                </label>
+                <input type="tel" id="nomor_hp" name="nomor_hp" class="form-control" required
+                  placeholder="Contoh: 08123456789">
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="required">
+                  <i class="fas fa-envelope"></i>
+                  Email
+                </label>
+                <input type="email" id="email" name="email" class="form-control" required
+                  placeholder="Contoh: nama@email.com">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="barang" class="required">
+                  <i class="fas fa-box"></i>
+                  Barang yang Ingin Dititipkan
+                </label>
+                <textarea id="barang" name="barang" class="form-control" required
+                  placeholder="Sebutkan nama barang, merek, ukuran, warna, dan spesifikasi lainnya secara detail. Contoh: Sepatu Nike Air Force 1 ukuran 42, warna putih"></textarea>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pembayaran" class="required">
+                  <i class="fas fa-credit-card"></i>
+                  Metode Pembayaran
+                </label>
+                <select id="pembayaran" name="pembayaran" class="form-control" required>
+                  <option value="">Pilih metode pembayaran</option>
+                  <option value="COD">🚚 COD (Bayar saat barang sampai)</option>
+                  <option value="Transfer">💳 Transfer (DP 50% dulu)</option>
+                </select>
+                <div class="payment-info">
+                  <strong>COD:</strong> Bayar langsung saat barang sampai + ongkir<br>
+                  <strong>Transfer:</strong> DP 50% dari total harga barang + ongkir, sisa dibayar saat barang sampai
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="catatan">
+                  <i class="fas fa-sticky-note"></i>
+                  Catatan Tambahan (opsional)
+                </label>
+                <textarea id="catatan" name="catatan" class="form-control"
+                  placeholder="Tambahkan catatan khusus jika ada (misal: urgent, preferensi toko, warna alternatif, dll)"></textarea>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="toko">
+                  <i class="fas fa-store"></i>
+                  Nama Toko
+                </label>
+                <input type="text" id="toko" name="toko" class="form-control" value="JastipHemat by Lviaa" readonly>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fas fa-paper-plane"></i>
+            Kirim Formulir
+          </button>
+
+          <div class="loading" id="loadingMessage">
+            <i class="fas fa-spinner"></i>
+            <span>Mengirim formulir... Mohon tunggu sebentar</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbybvDJUC_vFBKP12egaSvduoKq8pclIOjtYP4uhtX0CqrQKD0dMORZ2neUt13cm_cmx-A/exec';
+    const form = document.getElementById('jastipForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingMessage = document.getElementById('loadingMessage');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Initialize - ensure messages are hidden
+    function hideAllMessages() {
+      successMessage.classList.remove('show');
+      errorMessage.classList.remove('show');
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+    }
+
+    // Initialize on page load
+    hideAllMessages();
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      // Hide previous messages completely
+      hideAllMessages();
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+      loadingMessage.classList.add('show');
+
+      // Validate phone number format
+      const phoneInput = document.getElementById('nomor_hp');
+      const phoneValue = phoneInput.value.trim();
+      if (!phoneValue.match(/^(\+62|62|0)[\d\-\s]{8,13}$/)) {
+        showError('Format nomor HP tidak valid. Gunakan format: 08123456789 atau +6281234567890');
+        resetSubmitButton();
+        return;
+      }
+
+      // Submit form
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          showSuccess('Formulir berhasil dikirim! Terima kasih sudah mempercayai JastipHemat 💕');
+          form.reset();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showError('Terjadi kesalahan saat mengirim formulir. Silakan coba lagi atau hubungi kami langsung via WhatsApp.');
+        })
+        .finally(() => {
+          resetSubmitButton();
+        });
+    });
+
+    function showSuccess(message) {
+      hideAllMessages();
+      const successSpan = successMessage.querySelector('span');
+      successSpan.textContent = message;
+      successMessage.style.display = 'flex';
+      // Small delay to ensure display is set before animation
+      setTimeout(() => {
+        successMessage.classList.add('show');
+      }, 10);
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Auto hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 300);
+      }, 5000);
+    }
+
+    function showError(message) {
+      hideAllMessages();
+      const errorSpan = errorMessage.querySelector('span');
+      errorSpan.textContent = message;
+      errorMessage.style.display = 'flex';
+      // Small delay to ensure display is set before animation
+      setTimeout(() => {
+        errorMessage.classList.add('show');
+      }, 10);
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Auto hide error message after 5 seconds
+      setTimeout(() => {
+        errorMessage.classList.remove('show');
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+        }, 300);
+      }, 5000);
+    }
+
+    function resetSubmitButton() {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Formulir';
+      loadingMessage.classList.remove('show');
+    }
+
+    // Format phone number input
+    document.getElementById('nomor_hp').addEventListener('input', function (e) {
+      let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+      if (value.startsWith('62')) {
+        value = '0' + value.substring(2);
+      } else if (value.startsWith('8')) {
+        value = '0' + value;
+      }
+      e.target.value = value;
+    });
+
+    // Auto-resize textareas
+    document.querySelectorAll('textarea').forEach(textarea => {
+      textarea.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+      });
+    });
+
+    // Add smooth animations on form interaction
+    document.querySelectorAll('.form-control').forEach(input => {
+      input.addEventListener('focus', function () {
+        this.parentElement.style.transform = 'scale(1.02)';
+      });
+
+      input.addEventListener('blur', function () {
+        this.parentElement.style.transform = 'scale(1)';
+      });
+    });
+
+    // Add loading animation to submit button
+    document.addEventListener('DOMContentLoaded', function () {
+      // Animate form elements on load
+      const formElements = document.querySelectorAll('.form-group');
+      formElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          element.style.transition = 'all 0.6s ease-out';
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    });
+  </script>
+</body>
+
+</html>
