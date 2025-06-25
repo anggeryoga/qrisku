@@ -1,0 +1,787 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://h2rsi9anqnqbkvkf.public.blob.vercel-storage.com/Group%2063-958b6HNLF5qoQkgnDpEQvEGUy16GdB.png">
+  <title>Admin - Buat Link QRIS</title>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F2P3BLQEH7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F2P3BLQEH7');
+</script>
+
+  <!-- Open Graph untuk Facebook, WhatsApp, LinkedIn -->
+  <meta property="og:title" content="Bayar Praktis Pakai QRIS">
+  <meta property="og:description" content="Transaksi cepat, aman, dan praktis hanya dengan scan QRIS. Cocok buat bisnis dan kebutuhan harianmu.">
+  <meta property="og:image" content="https://siin.lol/payment.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bayar Praktis Pakai QRIS">
+  <meta name="twitter:description" content="Transaksi cepat, aman, dan praktis hanya dengan scan QRIS. Cocok buat bisnis dan kebutuhan harianmu.">
+  <meta name="twitter:image" content="https://siin.lol/payment.png">
+  
+  <style>
+  :root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffe66d;
+    --background-color: #f7f5e6;
+    --text-color: #2d3436;
+    --border-color: #333333;
+    --box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    --hover-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    --active-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    --border-radius: 8px;
+    --input-radius: 6px;
+    --button-radius: 6px;
+    --retro-pattern: repeating-linear-gradient(45deg, rgba(0,0,0,0.03), rgba(0,0,0,0.03) 10px, transparent 10px, transparent 20px);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  @font-face {
+    font-family: 'RetroFont';
+    src: url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: var(--retro-pattern), radial-gradient(circle, rgba(247,245,230,1) 0%, rgba(235,231,202,1) 100%);
+  }
+
+  .container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border: 3px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow), 0 0 0 10px rgba(255,255,255,0.2);
+    padding: 30px;
+    position: relative;
+    background-image: linear-gradient(0deg, rgba(255,255,255,0.8) 50%, rgba(247,245,230,0.8) 50%);
+    background-size: 100% 4px;
+  }
+
+  .header-ribbon {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    z-index: 10;
+  }
+
+  h1, h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 0 var(--border-color);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    border: 2px solid var(--border-color);
+    background-color: #f9f9f9;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border-radius: var(--input-radius);
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 0 0 3px rgba(255,107,107,0.2);
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin-top: 25px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: var(--button-radius);
+    letter-spacing: 1px;
+  }
+
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hover-shadow);
+    background-color: #ff5252;
+  }
+
+  button:active {
+    transform: translateY(0);
+    box-shadow: var(--active-shadow);
+  }
+
+  .output {
+    margin-top: 30px;
+    word-break: break-word;
+    background: #f9f9f9;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 0.95rem;
+    border-radius: var(--input-radius);
+    position: relative;
+  }
+
+  .output-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #555;
+  }
+
+  .dashed-border {
+    border-top: 2px dashed var(--border-color);
+    margin: 25px 0;
+  }
+
+  #result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 2px solid var(--border-color);
+    border-radius: var(--input-radius);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  #result a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  #result a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      width: 95%;
+      margin: 20px auto;
+      padding: 25px 15px;
+    }
+
+    h1, h2 {
+      font-size: 1.5rem;
+    }
+
+    input, button {
+      padding: 12px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    body {
+      padding: 10px;
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px 12px;
+      border-radius: 6px;
+    }
+
+    h1, h2 {
+      font-size: 1.3rem;
+    }
+
+    .header-ribbon {
+      font-size: 0.8rem;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-ribbon">Admin Panel</div>
+    <h1>Buat Link QRIS</h1>
+    <div class="dashed-border"></div>
+    <form id="generate-form">
+      <div class="form-group">
+        <label for="nama">Nama Penerima:</label>
+        <input type="text" id="nama" required>
+      </div>
+      <div class="form-group">
+        <label for="nomor">Nomor HP:</label>
+        <input type="text" id="nomor" required>
+      </div>
+      <div class="form-group">
+        <label for="nominal">Nominal (Rp):</label>
+        <input type="number" id="nominal" required>
+      </div>
+      <button type="submit">Generate Link QRIS</button>
+    </form>
+    <div class="dashed-border"></div>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('generate-form');
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value;
+      const nomor = document.getElementById('nomor').value;
+      const nominal = document.getElementById('nominal').value;
+      const data = btoa(JSON.stringify({ nama, nomor, nominal }));
+      const link = location.origin + "/pay/" + data;
+      document.getElementById('result').innerHTML = "<div class='output-title'>LINK QRIS BERHASIL DIBUAT:</div><a href='" + link + "' target='_blank'>" + link + "</a>";
+    };
+  </script>
+</body>
+</html>
+`;
+
+function censorPhone(phone) {
+  return phone.slice(0, 3) + '****' + phone.slice(-2);
+}
+
+function generatepayPage(nama, nomor, nominal) {
+  return `
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayar Praktis Pake QRIS</title>
+  <link rel="icon" type="image/png" href="https://h2rsi9anqnqbkvkf.public.blob.vercel-storage.com/Group%2063-958b6HNLF5qoQkgnDpEQvEGUy16GdB.png">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <!-- Open Graph untuk Facebook, WhatsApp, LinkedIn -->
+  <meta property="og:title" content="Bayar Praktis Pakai QRIS">
+  <meta property="og:description" content="Transaksi cepat, aman, dan praktis hanya dengan scan QRIS. Cocok buat bisnis dan kebutuhan harianmu.">
+  <meta property="og:image" content="https://siin.lol/payment.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bayar Praktis Pakai QRIS">
+  <meta name="twitter:description" content="Transaksi cepat, aman, dan praktis hanya dengan scan QRIS. Cocok buat bisnis dan kebutuhan harianmu.">
+  <meta name="twitter:image" content="https://siin.lol/payment.png">
+
+  <style>
+    :root {
+      --primary-color: #ff6b6b;
+      --secondary-color: #4ecdc4;
+      --accent-color: #ffe66d;
+      --background-color: #f7f5e6;
+      --text-color: #2d3436;
+      --border-color: #333333;
+      --box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      --hover-shadow: 0 10px 25px rgba(0,0,0,0.18);
+      --active-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      --border-radius: 8px;
+      --input-radius: 6px;
+      --button-radius: 6px;
+      --retro-pattern: repeating-linear-gradient(45deg, rgba(0,0,0,0.03), rgba(0,0,0,0.03) 10px, transparent 10px, transparent 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @font-face {
+      font-family: 'RetroFont';
+      src: url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 0%;
+      min-height: 100%;
+      background-image: var(--retro-pattern), radial-gradient(circle, rgba(247,245,230,1) 0%, rgba(235,231,202,1) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .receipt-container {
+      width: 100%;
+      max-width: 380px;
+      margin: auto;
+      padding: 0;
+      position: relative;
+      background-color: #fff;
+      box-shadow: var(--box-shadow), 0 0 0 10px rgba(255,255,255,0.2);
+      border-radius: var(--border-radius);
+      max-height: 100%;       /* batas tinggi container */
+    }
+    
+
+    .receipt-header {
+      background-color: var(--accent-color);
+      padding: 15px;
+      text-align: center;
+      border-bottom: 3px solid var(--border-color);
+      position: relative;
+    }
+
+    .receipt-title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: 0;
+      text-transform: uppercase;
+      color: var(--text-color);
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+    }
+
+    .receipt-number {
+      font-size: 0.8rem;
+      margin-top: 5px;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .receipt-content {
+      padding: 25px 20px;
+      background-image: linear-gradient(0deg, rgba(255,255,255,0.8) 50%, rgba(247,245,230,0.8) 50%);
+      background-size: 100% 4px;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .receipt-label {
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .receipt-value {
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    .receipt-total-section {
+      background-color: var(--secondary-color);
+      padding: 15px 20px;
+      border-top: 3px solid var(--border-color);
+    }
+
+    .receipt-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .receipt-total-label {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+    }
+
+    .receipt-total-value {
+      font-size: 1.3rem;
+      font-weight: bold;
+      background-color: white;
+      padding: 5px 15px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--input-radius);
+    }
+
+    .receipt-qr {
+      text-align: center;
+      padding: 20px 0;
+      background-color: white;
+    }
+
+    .qr-container {
+      display: inline-block;
+      padding: 15px;
+      background-color: white;
+      border: 2px solid var(--border-color);
+      border-radius: var(--input-radius);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .tips-section {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .tips-title {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .tips-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tip-btn {
+      background-color: var(--background-color);
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+      padding: 8px 15px;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: var(--button-radius);
+      transition: all 0.2s ease;
+    }
+
+    .tip-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .tip-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .receipt-footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.8rem;
+      border-top: 1px dashed var(--border-color);
+      background-color: white;
+    }
+
+    .tear-line {
+      height: 15px;
+      background-image: linear-gradient(45deg, transparent 0%, transparent 45%, var(--border-color) 49%, var(--border-color) 51%, transparent 55%, transparent 100%);
+      background-size: 20px 20px;
+      background-repeat: repeat-x;
+      margin: 0;
+      position: relative;
+    }
+
+    .tear-circle-left, .tear-circle-right {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: var(--background-color);
+      border: 3px solid var(--border-color);
+      border-radius: 50%;
+      top: -8px;
+    }
+
+    .tear-circle-left {
+      left: -15px;
+    }
+
+    .tear-circle-right {
+      right: -15px;
+    }
+
+    .store-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
+      padding: 5px 10px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      transform: rotate(15deg);
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 0%;
+      }
+
+      .receipt-container {
+        max-width: 100%;
+      }
+
+      .receipt-title {
+        font-size: 1.4rem;
+      }
+
+      .receipt-content {
+        padding: 15px;
+      }
+
+      .receipt-total-value {
+        font-size: 1.2rem;
+        padding: 4px 10px;
+      }
+
+      .tips-buttons {
+        gap: 5px;
+      }
+
+      .tip-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="receipt-container">
+    <div class="receipt-header">
+      <h1 class="receipt-title">INVOICE PEMBAYARAN <br> ${nama}</h1>
+      <div class="receipt-number">#${Math.floor(Math.random() * 900000) + 100000}</div>
+    </div>
+
+    <div class="tear-line">
+    </div>
+
+    <div class="receipt-content">
+      <div class="receipt-row">
+        <div class="receipt-label">Penerima:</div>
+        <div class="receipt-value">${nama}</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Nomor HP:</div>
+        <div class="receipt-value">${censorPhone(nomor)}</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Nominal:</div>
+        <div class="receipt-value">Rp${parseInt(nominal).toLocaleString()}</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Tanggal:</div>
+        <div class="receipt-value">${new Date().toLocaleDateString('id-ID')}</div>
+      </div>
+      <div class="receipt-row">
+      <div class="receipt-label">Jenis Pembayaran:</div>
+      <div class="receipt-value">QRIS</div>
+    </div>
+
+      <div class="tips-section">
+        <div class="tips-title">Tips Tambahan:</div>
+        <div class="tips-buttons">
+        <button class="tip-btn" onclick="setTips(2000)">+Rp2.000</button>
+          <button class="tip-btn" onclick="setTips(7000)">+Rp7.000</button>
+          <button class="tip-btn" onclick="setTips(10000)">+Rp10.000</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="receipt-total-section">
+      <div class="receipt-total-row">
+        <div class="receipt-total-label">Total Bayar:</div>
+        <div class="receipt-total-value" id="total"></div>
+      </div>
+    </div>
+
+    <div class="receipt-qr">
+      <div class="qr-container" id="qrcode"></div>
+    </div>
+
+    <div class="receipt-footer">
+      Terima kasih telah bertransaksi
+      <br>Simpan tanda terima ini sebagai bukti pembayaran
+    </div>
+  </div>
+
+  <script>
+  let nominal = ${parseInt(nominal)};
+  let tips = 0;
+  let activeButton = document.querySelector("button.active");
+  
+  const qrisStatic = "00020101021126610014COM.GO-JEK.WWW01189360091432840999140210G2840999140303UMI51440014ID.CO.QRIS.WWW0215ID10253780771980303UMI5204549953033605802ID5916SIINMEDIA, PCNGN6006JEPARA61055946262070703A01630456FE";
+  
+  function pad(number) {
+    return number < 10 ? '0' + number : number.toString();
+  }
+
+  function toCRC16(input) {
+    let crc = 0xFFFF;
+    for (let i = 0; i < input.length; i++) {
+      crc ^= input.charCodeAt(i) << 8;
+      for (let j = 0; j < 8; j++) {
+        crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+      }
+    }
+    let hex = (crc & 0xFFFF).toString(16).toUpperCase();
+    return hex.length === 3 ? "0" + hex : hex;
+  }
+
+  function makeDynamicQRIS(qris, nominal) {
+    let qrisModified = qris.slice(0, -4);
+    qrisModified = qrisModified.replace("010211", "010212");
+    let qrisParts = qrisModified.split("5802ID");
+    let amount = "54" + pad(nominal.toString().length) + nominal;
+    amount += "5802ID";
+    let output = qrisParts[0].trim() + amount + qrisParts[1].trim();
+    output += toCRC16(output);
+    return output;
+  }
+
+  function setTips(value) {
+    tips = value;
+    const total = nominal + tips;
+    document.getElementById("total").innerText = "Rp" + total.toLocaleString();
+    
+    // Update active button state
+    if (activeButton) {
+      activeButton.classList.remove("active");
+    }
+    const buttons = document.querySelectorAll("button");
+    for (let i = 0; i < buttons.length; i++) {
+      if (buttons[i].onclick.toString().includes("setTips(" + value + ")")) {
+        buttons[i].classList.add("active");
+        activeButton = buttons[i];
+        break;
+      }
+    }
+    
+    const finalQRIS = makeDynamicQRIS(qrisStatic, total);
+    QRCode.toCanvas(document.getElementById("qrcode").querySelector("canvas") || document.createElement("canvas"), finalQRIS, { 
+      margin: 2,
+      width: 200,
+      scale: 8
+    }, function (err, canvas) {
+      if (err) {
+        console.error(err);
+        return alert("Gagal membuat QR Code");
+      }
+      document.getElementById("qrcode").innerHTML = "";
+      document.getElementById("qrcode").appendChild(canvas);
+    });
+  }
+
+  // Inisialisasi
+  setTips(0);
+</script>
+</body>
+</html>
+`;
+}
+
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+
+    if (pathname === "/admin") {
+      return new Response(htmlAdmin, {
+        headers: { "content-type": "text/html;charset=UTF-8" }
+      });
+    }
+
+    if (pathname.startsWith("/pay/")) {
+      const base64 = pathname.replace("/pay/", "");
+      try {
+        const json = atob(base64);
+        const { nama, nomor, nominal } = JSON.parse(json);
+         // Validate input data
+        if (!nama || !nomor || !nominal) {
+          return new Response("Data tidak valid", { status: 400 });
+        }
+        const html = generatepayPage(nama, nomor, nominal);
+        return new Response(html, {
+          headers: { "content-type": "text/html;charset=UTF-8" }
+        });
+      } catch (err) {
+        console.error("Error processing pay request:", err);
+        return new Response("Data tidak valid atau terjadi kesalahan", { status: 400 });
+      }
+    }
+
+    return new Response("404 Not Found", { status: 404 });
+  }
+}
