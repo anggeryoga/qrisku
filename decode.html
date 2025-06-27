@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRIS Base64 Decoder</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 3px solid #2c3e50;
+      border-radius: 12px;
+      box-shadow: 8px 8px 0px #34495e, 4px 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 30px 40px;
+      border-bottom: 3px solid #2c3e50;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      opacity: 0.3;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 3px 3px 0px #2c3e50;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #ecf0f1;
+      font-size: 1rem;
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 20px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.95rem;
+      border: 3px solid #34495e;
+      border-radius: 8px;
+      background: #f8f9fa;
+      color: #2c3e50;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    textarea:focus {
+      border-color: #667eea;
+      background: #ffffff;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1), 0 0 0 3px rgba(102, 126, 234, 0.2);
+      transform: translateY(-1px);
+    }
+
+    textarea::placeholder {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    .button-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    button {
+      padding: 18px 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: inherit;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      border: 3px solid #2c3e50;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 4px 4px 0px #34495e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0px #34495e;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 2px 2px 0px #34495e;
+    }
+
+    .output-section {
+      background: #ecf0f1;
+      border: 3px solid #34495e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .output-header {
+      background: #34495e;
+      color: #ffffff;
+      padding: 15px 20px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #2c3e50;
+    }
+
+    .output-content {
+      padding: 25px;
+      background: #ffffff;
+    }
+
+    pre {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #2c3e50;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 6px;
+      border: 2px solid #e1e8ed;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      min-height: 100px;
+    }
+
+    .error {
+      color: #e74c3c;
+      background: #fdf2f2;
+      border-color: #e74c3c;
+    }
+
+    .success {
+      color: #27ae60;
+      background: #f2fdf4;
+      border-color: #27ae60;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        border-width: 2px;
+        box-shadow: 4px 4px 0px #34495e, 2px 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      .header {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      button {
+        padding: 15px 30px;
+        font-size: 1rem;
+        box-shadow: 3px 3px 0px #34495e;
+      }
+      
+      button:hover {
+        box-shadow: 4px 4px 0px #34495e;
+      }
+    }
+
+    /* Animation for page load */
+    .container {
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Loading state */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .loading button {
+      background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>QRIS Decoder</h1>
+      <div class="subtitle">Base64 to JSON Converter</div>
+    </div>
+    
+    <div class="content">
+      <div class="input-group">
+        <label for="base64Input">Input Base64 Code</label>
+        <textarea 
+          id="base64Input" 
+          placeholder="Masukkan kode Base64 QRIS di sini...&#10;Contoh: eyJtZXJjaGFudCI6IkNvbnRvaCBUb2tvIn0="
+        ></textarea>
+      </div>
+      
+      <div class="button-container">
+        <button onclick="decodeBase64()">
+          <span id="buttonText">🔓 Decode Now</span>
+        </button>
+      </div>
+      
+      <div class="output-section">
+        <div class="output-header">
+          📋 Hasil Decode
+        </div>
+        <div class="output-content">
+          <pre id="output">Hasil decode akan muncul di sini...</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function decodeBase64() {
+      const input = document.getElementById("base64Input").value.trim();
+      const output = document.getElementById("output");
+      const container = document.querySelector('.container');
+      const buttonText = document.getElementById('buttonText');
+      
+      // Validation
+      if (!input) {
+        output.textContent = "❌ Error: Silakan masukkan kode Base64 terlebih dahulu!";
+        output.className = "error";
+        return;
+      }
+      
+      // Show loading state
+      container.classList.add('loading');
+      buttonText.textContent = "⏳ Decoding...";
+      
+      setTimeout(() => {
+        try {
+          // Remove leading slash if present
+          const cleaned = input.replace(/^\//, "");
+          
+          // Decode Base64
+          const decoded = atob(cleaned);
+          
+          // Try to parse as JSON
+          let result;
+          try {
+            result = JSON.parse(decoded);
+            output.textContent = JSON.stringify(result, null, 2);
+            output.className = "success";
+          } catch (jsonError) {
+            // If not JSON, show as plain text
+            output.textContent = `📝 Decoded Text (Non-JSON):\n\n${decoded}`;
+            output.className = "";
+          }
+          
+        } catch (error) {
+          output.textContent = `❌ Gagal decode Base64!\n\nError: ${error.message}\n\n💡 Tips:\n- Pastikan format Base64 valid\n- Periksa tidak ada karakter yang hilang\n- Coba hapus spasi atau karakter khusus`;
+          output.className = "error";
+        } finally {
+          // Remove loading state
+          container.classList.remove('loading');
+          buttonText.textContent = "🔓 Decode Now";
+        }
+      }, 500);
+    }
+    
+    // Allow Enter key to trigger decode
+    document.getElementById("base64Input").addEventListener("keydown", function(event) {
+      if (event.ctrlKey && event.key === "Enter") {
+        decodeBase64();
+      }
+    });
+    
+    // Auto-resize textarea
+    document.getElementById("base64Input").addEventListener("input", function() {
+      this.style.height = "auto";
+      this.style.height = Math.max(120, this.scrollHeight) + "px";
+    });
+  </script>
+</body>
+</html>
