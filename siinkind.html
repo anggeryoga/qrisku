@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIINKind - Donasi Pembangunan Jepara</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -33,7 +35,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             color: var(--text);
             position: relative;
         }
@@ -196,7 +197,8 @@
             color: var(--dark);
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 14px 14px 14px 48px;
             border: 2px solid var(--dark);
@@ -211,7 +213,8 @@
             padding-left: 16px;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus {
             outline: none;
             box-shadow: 2px 2px 0 var(--dark);
         }
@@ -442,17 +445,27 @@
         }
 
         @keyframes pop {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @media print {
             body * {
                 visibility: hidden;
             }
-            #qrcode, #qrcode * {
+
+            #qrcode,
+            #qrcode * {
                 visibility: visible;
             }
+
             #qrcode {
                 position: absolute;
                 left: 0;
@@ -462,6 +475,7 @@
                 border: none;
                 box-shadow: none;
             }
+
             #qrcode::after {
                 display: none;
             }
@@ -471,7 +485,7 @@
             .container {
                 padding: 24px;
             }
-            
+
             .amount-options {
                 grid-template-columns: 1fr;
             }
@@ -482,96 +496,44 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">
+        <div class="header"
+            style="text-align:center; padding:30px 15px; background: linear-gradient(135deg, #ff6b6b, #ffb347); color: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            <div class="logo"
+                style="font-size: 2.2rem; font-weight: bold; margin-bottom: 10px; display:flex; align-items:center; justify-content:center; gap:10px;">
                 <i class="fas fa-hands-helping"></i>
                 <span>SIINKind</span>
             </div>
-            <h2>DONASI UNTUK JEPARA</h2>
-            <p>Bantu pembangunan infrastruktur & kesejahteraan masyarakat</p>
+            <h2 style="margin: 10px 0; font-size: 1.8rem; font-weight: 700; letter-spacing: 1px;">Donasi untuk Jepara
+            </h2>
+            <p style="font-size: 1rem; margin: 0; opacity: 0.9;">
+                Ayo berbagi kebahagiaan untuk sesama. Setiap donasi Anda berarti harapan baru bagi masyarakat yang
+                membutuhkan 🤲✨
+            </p>
         </div>
+
 
         <div class="campaign-tabs">
-            <div class="campaign-tab active" data-campaign="jalan" data-code="9">Perbaikan Jalan</div>
-            <div class="campaign-tab" data-campaign="pendidikan" data-code="8">Beasiswa Pendidikan</div>
-            <div class="campaign-tab" data-campaign="kesehatan" data-code="7">Fasilitas Kesehatan</div>
-            <div class="campaign-tab" data-campaign="lainnya" data-code="6">Lainnya</div>
+            <div class="campaign-tab active" hidden data-campaign="jalan" data-code="9">Jumat Berkah</div>
+
         </div>
 
-        <div class="campaign-card" id="jalan-campaign">
+        <div class="campaign-card" id="jumat-berkah-campaign">
             <div class="campaign-title">
-                <i class="fas fa-road"></i>
-                <span>Perbaikan Jalan Desa</span>
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>Donasi Jumat Berkah</span>
             </div>
             <div class="campaign-desc">
-                Donasi Anda akan digunakan untuk perbaikan jalan di desa-desa terpencil Jepara. Membantu akses transportasi warga, memperlancar distribusi barang, dan meningkatkan perekonomian lokal.
-            </div>
-            <div class="campaign-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <div class="progress-text">
-                    <span>Terkumpul: Rp 750.000</span>
-                    <span>Target: Rp 65.000.000</span>
-                </div>
+                Donasi Anda akan digunakan untuk pembagian porsi makanan kepada tunawisma di Jepara.
+                Bersama kita berbagi kebahagiaan dan membantu mereka yang membutuhkan di hari penuh berkah.
             </div>
         </div>
 
-        <div class="campaign-card" id="pendidikan-campaign" style="display: none;">
-            <div class="campaign-title">
-                <i class="fas fa-book-open"></i>
-                <span>Beasiswa Pendidikan</span>
-            </div>
-            <div class="campaign-desc">
-                Bantu anak-anak kurang mampu di Jepara untuk terus bersekolah. Donasi akan digunakan untuk biaya sekolah, seragam, buku, dan kebutuhan pendidikan lainnya.
-            </div>
-            <div class="campaign-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 40%;"></div>
-                </div>
-                <div class="progress-text">
-                    <span>Terkumpul: Rp 300.000</span>
-                    <span>Target: Rp 30.000.000</span>
-                </div>
-            </div>
-        </div>
 
-        <div class="campaign-card" id="kesehatan-campaign" style="display: none;">
-            <div class="campaign-title">
-                <i class="fas fa-hospital"></i>
-                <span>Fasilitas Kesehatan</span>
-            </div>
-            <div class="campaign-desc">
-                Perbaikan dan pengadaan alat kesehatan untuk puskesmas dan posyandu di daerah terpencil Jepara. Donasi Anda akan menyelamatkan banyak nyawa.
-            </div>
-            <div class="campaign-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 25%;"></div>
-                </div>
-                <div class="progress-text">
-                    <span>Terkumpul: Rp 500.000</span>
-                    <span>Target: Rp 30.000.000</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="campaign-card" id="lainnya-campaign" style="display: none;">
-            <div class="campaign-title">
-                <i class="fas fa-heart"></i>
-                <span>Bantuan Lainnya</span>
-            </div>
-            <div class="campaign-desc">
-                Donasi untuk berbagai kebutuhan mendesak masyarakat Jepara, termasuk bantuan bencana, modal usaha kecil, dan program pemberdayaan masyarakat.
-            </div>
-            <div class="form-group">
-                <label>Keterangan Donasi (Opsional)</label>
-                <textarea id="donationNote" placeholder="Tulis tujuan spesifik donasi Anda (jika ada)"></textarea>
-            </div>
-        </div>
-
-        <input type="hidden" id="qrisInput" value="00020101021126610014COM.GO-JEK.WWW01189360091432840999140210G2840999140303UMI51440014ID.CO.QRIS.WWW0215ID10253780771980303UMI5204549953033605802ID5916SIINMEDIA, PCNGN6006JEPARA61055946262070703A01630456FE">
+        <input type="hidden" id="qrisInput"
+            value="00020101021126610014COM.GO-JEK.WWW01189360091432840999140210G2840999140303UMI51440014ID.CO.QRIS.WWW0215ID10253780771980303UMI5204549953033605802ID5916SIINMEDIA, PCNGN6006JEPARA61055946262070703A01630456FE">
 
         <div class="form-group">
             <label>Nama Donatur (Opsional)</label>
@@ -600,12 +562,8 @@
             <div class="custom-amount">
                 <span class="currency">Rp</span>
                 <div class="input-wrapper" style="flex-grow: 1;">
-                    <input type="number" 
-                           id="nominalInput" 
-                           placeholder="Masukkan jumlah donasi"
-                           min="1"
-                           step="1000"
-                           style="padding-left: 16px;">
+                    <input type="number" id="nominalInput" placeholder="Masukkan jumlah donasi" min="1" step="1000"
+                        style="padding-left: 16px;">
                 </div>
             </div>
         </div>
@@ -627,15 +585,26 @@
                 <i class="fas fa-check-circle"></i>
                 <span>Konfirmasi Donasi</span>
             </div>
-            <p>Setelah melakukan pembayaran, silakan konfirmasi dengan mengklik tombol di bawah ini. Kami akan memverifikasi donasi Anda segera.</p>
+            <p>Setelah melakukan pembayaran, silakan konfirmasi dengan mengklik tombol di bawah ini. Kami akan
+                memverifikasi donasi Anda segera.</p>
             <button class="confirm-button" onclick="sendConfirmation()">
                 <i class="fab fa-whatsapp"></i> Konfirmasi via WhatsApp
             </button>
         </div>
 
         <div class="disclaimer">
-            <strong>PERHATIAN:</strong> SIINKind adalah platform donasi independen yang tidak berafiliasi dengan pemerintah atau lembaga resmi apapun. Donasi bersifat sukarela tanpa batas minimum. Dana akan dikelola secara transparan oleh tim relawan SIINKind untuk kepentingan masyarakat Jepara.
+            <strong>Transparansi Donasi:</strong>
+            SIINKind adalah platform donasi mandiri yang dijalankan oleh relawan, tanpa afiliasi dengan pemerintah atau
+            lembaga resmi manapun.
+            Semua donasi bersifat sukarela dan tanpa batas minimum. Dana akan dikelola secara terbuka untuk
+            program-program kemanusiaan di Jepara.
+            Laporan penggunaan dana dapat diakses melalui
+            <a href="https://docs.google.com/spreadsheets/d/your-spreadsheet-id-here/edit?usp=sharing" target="_blank"
+                style="color: red; font-weight: bold;">
+                Spreadsheet Keuangan Publik
+            </a>.
         </div>
+
 
         <div class="footer">
             <p>© 2025 SIINKind - Semua donasi terekam secara transparan</p>
@@ -648,17 +617,13 @@
         const tabs = document.querySelectorAll('.campaign-tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
                 tab.classList.add('active');
-                
-                // Hide all campaign cards
+
                 document.querySelectorAll('.campaign-card').forEach(card => {
                     card.style.display = 'none';
                 });
-                
-                // Show selected campaign card
+
                 const campaignId = tab.dataset.campaign + '-campaign';
                 document.getElementById(campaignId).style.display = 'block';
             });
@@ -670,7 +635,6 @@
         const qrcodeElement = document.getElementById('qrcode');
         const confirmSection = document.getElementById('confirmSection');
 
-        // Set amount from buttons
         amountButtons.forEach(button => {
             button.addEventListener('click', () => {
                 amountButtons.forEach(btn => btn.classList.remove('active'));
@@ -680,12 +644,11 @@
             });
         });
 
-        // Validate input is number
-        nominalInput.addEventListener('input', function(e) {
+        nominalInput.addEventListener('input', function (e) {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-        // QRIS generation functions
+        // QRIS functions
         function pad(number) {
             return number < 10 ? '0' + number : number.toString();
         }
@@ -702,17 +665,12 @@
             return hex.length === 3 ? "0" + hex : hex;
         }
 
-        function makeString(qris, { nominal, campaignCode } = {}) {
-            // Add campaign code to the last digit of nominal
-            let nominalWithCode = nominal.toString();
-            if (!nominalWithCode.endsWith(campaignCode)) {
-                nominalWithCode = nominalWithCode.replace(/\d$/, campaignCode);
-            }
-            
-            let qrisModified = qris.slice(0, -4).replace("010211", "010212");
+        function makeString(qris, { nominal } = {}) {
+            // Gunakan nominal yang sudah dimodifikasi di generateQRIS
+            let qrisModified = qris.slice(0, -4).replace(/01021[12]/, "010211");
             let qrisParts = qrisModified.split("5802ID");
 
-            let amount = "54" + pad(nominalWithCode.toString().length) + nominalWithCode;
+            let amount = "54" + pad(nominal.toString().length) + nominal;
             amount += "5802ID";
 
             let output = qrisParts[0].trim() + amount + qrisParts[1].trim();
@@ -725,7 +683,7 @@
             const qrisInput = document.getElementById('qrisInput').value.trim();
             let nominalValue = nominalInput.value.trim();
             const nominal = parseInt(nominalValue || '0');
-            
+
             if (!nominal || nominal <= 0) {
                 alert('Silakan masukkan jumlah donasi yang valid');
                 nominalInput.focus();
@@ -735,21 +693,19 @@
             const name = document.getElementById('nameInput').value.trim();
             const phone = document.getElementById('phoneInput').value.trim();
             const activeTab = document.querySelector('.campaign-tab.active');
-            const campaignCode = activeTab.dataset.code;
             const campaignName = activeTab.textContent.trim();
             const donationNote = document.getElementById('donationNote') ? document.getElementById('donationNote').value.trim() : '';
-            
-            // Generate nominal with campaign code
-            const nominalWithCode = parseInt(nominal.toString().replace(/\d$/, campaignCode));
-            
-            const qrisDinamis = makeString(qrisInput, { 
-                nominal: nominalWithCode,
-                campaignCode: campaignCode
-            });
-            
+
+            // Nominal untuk QRIS (replace 3 digit terakhir jadi 211)
+            const nominalForQRIS = parseInt(
+                nominal.toString().replace(/\d{1,3}$/, "211")
+            );
+
+            const qrisDinamis = makeString(qrisInput, { nominal: nominalForQRIS });
+
             qrcodeElement.innerHTML = '';
             qrcodeElement.classList.add('animate-pop');
-            
+
             QRCode.toCanvas(qrisDinamis, {
                 margin: 2,
                 width: 200,
@@ -762,53 +718,51 @@
                 if (err) {
                     console.error(err);
                     qrcodeElement.innerHTML = `
-                        <div class="qr-placeholder">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <p>Gagal membuat QR Code</p>
-                        </div>
-                    `;
+                    <div class="qr-placeholder">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Gagal membuat QR Code</p>
+                    </div>
+                `;
                 } else {
                     const amountDisplay = document.createElement('div');
                     amountDisplay.className = 'qr-amount';
+                    // ⚡ tampilkan nominal asli (tidak ditambah 211)
                     amountDisplay.textContent = `Rp${nominal.toLocaleString('id-ID')}`;
-                    
+
                     const metaInfo = document.createElement('div');
                     metaInfo.className = 'qr-meta';
-                    
+
                     let infoText = 'Scan QR code ini untuk menyelesaikan donasi Anda';
-                    
+
                     if (name) {
                         infoText += `<br>Donatur: ${name}`;
                     }
-                    
+
                     infoText += `<br>Tujuan: ${campaignName}`;
-                    
+
                     if (donationNote) {
                         infoText += `<br>Catatan: ${donationNote}`;
                     }
-                    
+
                     metaInfo.innerHTML = infoText;
-                    
+
                     const actionButtons = document.createElement('div');
                     actionButtons.className = 'action-buttons';
                     actionButtons.innerHTML = `
-                        <button class="action-button" onclick="window.location.reload()">
-                            <i class="fas fa-redo"></i> Buat Baru
-                        </button>
-                        <button class="action-button print" onclick="window.print()">
-                            <i class="fas fa-print"></i> Cetak QR
-                        </button>
-                    `;
-                    
+                    <button class="action-button" onclick="window.location.reload()">
+                        <i class="fas fa-redo"></i> Buat Baru
+                    </button>
+                    <button class="action-button print" onclick="window.print()">
+                        <i class="fas fa-print"></i> Cetak QR
+                    </button>
+                `;
+
                     qrcodeElement.appendChild(canvas);
                     qrcodeElement.appendChild(amountDisplay);
                     qrcodeElement.appendChild(metaInfo);
                     qrcodeElement.appendChild(actionButtons);
-                    
-                    // Show confirmation section
+
                     confirmSection.style.display = 'block';
-                    
-                    // Scroll to QR code
                     qrcodeElement.scrollIntoView({ behavior: 'smooth' });
                 }
                 qrcodeElement.classList.remove('animate-pop');
@@ -822,33 +776,36 @@
             const activeTab = document.querySelector('.campaign-tab.active');
             const campaignName = activeTab.textContent.trim();
             const donationNote = document.getElementById('donationNote') ? document.getElementById('donationNote').value.trim() : '';
-            
+
             if (!nominal || isNaN(nominal)) {
                 alert('Silakan masukkan jumlah donasi yang valid terlebih dahulu');
                 return;
             }
-            
+
             const whatsappNumber = '6282324159922';
             let message = `Halo admin SIINKind, saya ingin mengkonfirmasi donasi dengan detail berikut:\n\n`;
             message += `Nama: ${name}\n`;
             message += `Nominal Donasi: Rp ${parseInt(nominal).toLocaleString('id-ID')}\n`;
             message += `Tujuan Donasi: ${campaignName}\n`;
-            
+
             if (phone) {
                 message += `Nomor WhatsApp: ${phone}\n`;
             }
-            
+
             if (donationNote) {
                 message += `Catatan: ${donationNote}\n`;
             }
-            
+
             message += `\nSaya telah melakukan pembayaran sesuai QRIS yang diberikan. Mohon konfirmasi penerimaannya. Terima kasih.`;
-            
+
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            
+
             window.open(whatsappUrl, '_blank');
         }
     </script>
+
+
 </body>
+
 </html>
